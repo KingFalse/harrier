@@ -39,6 +39,6 @@ fun mapMultithreadingWithReturn() {
 <dependency>
   <groupId>me.kagura</groupId>
   <artifactId>harrier</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
 </dependency>
 ```
