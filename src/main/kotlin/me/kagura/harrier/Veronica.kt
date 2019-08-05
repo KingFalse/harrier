@@ -7,7 +7,7 @@ import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executors
 
 /**
- * Returns a list containing the results of applying the given [funWorker] function
+ * Returns a list containing the results of applying the given [funWorker] function with Multithreading
  * to each element in the original collection.
  */
 inline fun <T> Iterable<T>.mapMultithreading(nThreads: Int = 5, crossinline funWorker: (T) -> Any?): Iterable<Any?> {
