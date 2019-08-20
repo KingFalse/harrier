@@ -12,12 +12,11 @@ import java.util.concurrent.Executors
  */
 inline fun <T> Iterable<T>.mapMultithreading(nThreads: Int = 5, crossinline funWorker: (T) -> Any?): Iterable<Any?> {
     val results = arrayOfNulls<Any>(count())
-    val coroutineDispatcher = Executors.newFixedThreadPool(nThreads).asCoroutineDispatcher()
     runBlocking {
-        coroutineDispatcher.use {
+        Executors.newFixedThreadPool(nThreads).asCoroutineDispatcher().use {
             launch {
                 forEachIndexed { index, arg ->
-                    async(coroutineDispatcher) {
+                    async(it) {
                         funWorker(arg).let {
                             results[index] = it
                         }
