@@ -17,9 +17,7 @@ inline fun <T> Iterable<T>.mapMultithreading(nThreads: Int = 5, crossinline funW
             launch {
                 forEachIndexed { index, arg ->
                     async(it) {
-                        funWorker(arg).let {
-                            results[index] = it
-                        }
+                        results[index] = funWorker(arg)
                     }
                 }
             }.join()
