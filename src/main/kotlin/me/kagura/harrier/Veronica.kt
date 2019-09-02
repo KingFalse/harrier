@@ -2,7 +2,6 @@ package me.kagura.harrier
 
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.concurrent.Executors
 
@@ -14,13 +13,11 @@ inline fun <T> Iterable<T>.mapMultithreading(nThreads: Int = 5, crossinline funW
     val results = arrayOfNulls<Any>(count())
     runBlocking {
         Executors.newFixedThreadPool(nThreads).asCoroutineDispatcher().use {
-            launch {
-                forEachIndexed { index, arg ->
-                    async(it) {
-                        results[index] = funWorker(arg)
-                    }
+            forEachIndexed { index, arg ->
+                async(it) {
+                    results[index] = funWorker(arg)
                 }
-            }.join()
+            }
         }
     }
     return results.asIterable()
