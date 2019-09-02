@@ -9,10 +9,10 @@ import java.util.concurrent.Executors
  * Returns a list containing the results of applying the given [funWorker] function with Multithreading
  * to each element in the original collection.
  */
-inline fun <T> Iterable<T>.mapMultithreading(nThreads: Int = 5, crossinline funWorker: (T) -> Any?): Iterable<Any?> {
+inline fun <T> Iterable<T>.mapMultithreading(nThreads: Int = Runtime.getRuntime().availableProcessors(), crossinline funWorker: (T) -> Any?): Iterable<Any?> {
     val results = arrayOfNulls<Any>(count())
     runBlocking {
-        Executors.newFixedThreadPool(nThreads).asCoroutineDispatcher().use {
+        Executors.newWorkStealingPool(nThreads).asCoroutineDispatcher().use {
             forEachIndexed { index, arg ->
                 async(it) {
                     results[index] = funWorker(arg)
