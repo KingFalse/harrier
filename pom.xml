@@ -6,7 +6,7 @@
 
     <groupId>me.kagura</groupId>
     <artifactId>harrier</artifactId>
-    <version>1.2</version>
+    <version>1.3</version>
     <packaging>jar</packaging>
 
     <parent>
